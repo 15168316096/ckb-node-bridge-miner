@@ -11,13 +11,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      # Override any rust-toolchain file shipped in cloned subrepos (e.g. ckbNodeBridge),
+      # so the toolchain pinned by this workflow is always used.
+      RUSTUP_TOOLCHAIN: "1.86.0"
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: "1.85.0"
+          toolchain: "1.86.0"
 
       - name: build-ckbNodeBridge
         run: make build-ckbNodeBridge
